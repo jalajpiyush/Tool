@@ -1,10 +1,21 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToolKit - Image & PDF Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+     crossorigin="anonymous"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-YOUR_PUBLISHER_ID",
+            enable_page_level_ads: true
+        });
+    </script>
+    
     <style>
         :root {
             --primary: #4361ee;
@@ -549,6 +560,23 @@
             cursor: move;
         }
 
+        /* Ad Container Styles */
+        .ad-container {
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Responsive ads */
+        @media (max-width: 768px) {
+            .ad-container {
+                margin: 1rem auto;
+                padding: 0.5rem;
+            }
+        }
+
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -725,6 +753,22 @@
         </div>
     </section>
 
+    <!-- Ad Unit 1: Leaderboard -->
+    <div class="container ad-container">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+         crossorigin="anonymous"></script>
+        <!-- Horizontal Ad -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID_1"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
@@ -757,6 +801,22 @@
             </div>
         </div>
     </section>
+
+    <!-- Ad Unit 2: Rectangle -->
+    <div class="container ad-container">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+         crossorigin="anonymous"></script>
+        <!-- Medium Rectangle -->
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID_2"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <!-- Tools Section -->
     <section class="tools" id="tools">
@@ -804,6 +864,23 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Ad Unit 3: Vertical Banner -->
+                <div class="container ad-container">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                     crossorigin="anonymous"></script>
+                    <!-- Vertical Banner -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID_3"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
                 <div class="tool-category">
                     <div class="tool-header">
                         <div class="tool-icon">
@@ -904,6 +981,22 @@
             <button class="btn btn-primary" id="finalCtaBtn">Get Started for Free</button>
         </div>
     </section>
+
+    <!-- Ad Unit 4: Bottom Banner -->
+    <div class="container ad-container">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+         crossorigin="anonymous"></script>
+        <!-- Bottom Banner -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID_4"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <!-- Modal -->
     <div class="modal" id="toolModal">
@@ -1463,12 +1556,97 @@
         const homeLink = document.getElementById('homeLink');
         const newsletterForm = document.getElementById('newsletterForm');
 
-        // Current active tool
+        // Current active tool and processed file data
         let currentTool = null;
+        let processedFileData = null;
 
         // Simulate processing delay
         function simulateProcessing(delay) {
             return new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        // Create a downloadable file
+        function createDownloadableFile(content, fileName, fileType) {
+            let blob;
+            
+            if (fileType === 'application/pdf') {
+                // For PDF files (simulated)
+                blob = new Blob([content], { type: fileType });
+            } else if (fileType.includes('image')) {
+                // For image files (simulated)
+                blob = new Blob([content], { type: fileType });
+            } else {
+                // For other file types
+                blob = new Blob([content], { type: fileType });
+            }
+            
+            return {
+                url: URL.createObjectURL(blob),
+                name: fileName
+            };
+        }
+
+        // Setup crop preview
+        function setupCropPreview(file) {
+            const cropPreviewImage = document.getElementById('cropPreviewImage');
+            const cropSelection = document.getElementById('cropSelection');
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                cropPreviewImage.src = e.target.result;
+                cropPreviewImage.style.display = 'block';
+                
+                cropPreviewImage.onload = function() {
+                    // Set up crop selection
+                    cropSelection.style.display = 'block';
+                    cropSelection.style.width = '50%';
+                    cropSelection.style.height = '50%';
+                    cropSelection.style.left = '25%';
+                    cropSelection.style.top = '25%';
+                    
+                    // Make draggable
+                    makeDraggable(cropSelection);
+                };
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // Make element draggable
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            
+            element.onmousedown = dragMouseDown;
+            
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // Get the mouse cursor position at startup
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // Call a function whenever the cursor moves
+                document.onmousemove = elementDrag;
+            }
+            
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // Calculate the new cursor position
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // Set the element's new position
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+            
+            function closeDragElement() {
+                // Stop moving when mouse button is released
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
         }
 
         // Show modal with tool preview
@@ -1527,30 +1705,9 @@
                         }
                         processBtn.disabled = false;
                         
-                        // Handle crop preview if it's the crop tool
+                        // Handle previews if needed (crop, watermark, etc.)
                         if (toolId === 'crop-image') {
-                            const cropPreviewImage = document.getElementById('cropPreviewImage');
-                            const cropSelection = document.getElementById('cropSelection');
-                            const reader = new FileReader();
-                            
-                            reader.onload = function(e) {
-                                cropPreviewImage.src = e.target.result;
-                                cropPreviewImage.style.display = 'block';
-                                
-                                cropPreviewImage.onload = function() {
-                                    // Set up crop selection
-                                    cropSelection.style.display = 'block';
-                                    cropSelection.style.width = '50%';
-                                    cropSelection.style.height = '50%';
-                                    cropSelection.style.left = '25%';
-                                    cropSelection.style.top = '25%';
-                                    
-                                    // Make draggable
-                                    makeDraggable(cropSelection);
-                                };
-                            };
-                            
-                            reader.readAsDataURL(files[0]);
+                            setupCropPreview(files[0]);
                         }
                     } else {
                         fileName.textContent = 'No file chosen';
@@ -1714,16 +1871,40 @@
                             if (successMessage) {
                                 successMessage.textContent = result.message || 'Processing complete!';
                             }
-                            resultContainer.style.display = 'block';
                             
-                            // Set up download button
-                            if (downloadBtn) {
-                                downloadBtn.onclick = (e) => {
-                                    e.preventDefault();
-                                    // In a real implementation, this would download the actual processed file
-                                    alert(`In a full implementation, this would download the processed ${toolId} file.`);
-                                };
+                            // Create a simulated processed file
+                            const originalFileName = files[0].name;
+                            let newFileName = '';
+                            let fileType = '';
+                            
+                            // Determine output file type and name based on tool
+                            if (toolId === 'word-to-pdf') {
+                                newFileName = originalFileName.replace(/\.[^/.]+$/, '') + '.pdf';
+                                fileType = 'application/pdf';
+                            } else if (toolId === 'pdf-to-word') {
+                                newFileName = originalFileName.replace(/\.[^/.]+$/, '') + '.docx';
+                                fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                            } else if (toolId === 'convert-image') {
+                                const format = document.getElementById('outputFormat').value;
+                                newFileName = originalFileName.replace(/\.[^/.]+$/, '') + '.' + format;
+                                fileType = `image/${format}`;
+                            } else if (toolId === 'jpg-to-pdf') {
+                                newFileName = originalFileName.replace(/\.[^/.]+$/, '') + '.pdf';
+                                fileType = 'application/pdf';
+                            } else {
+                                // Default to original file type with "processed_" prefix
+                                newFileName = 'processed_' + originalFileName;
+                                fileType = files[0].type;
                             }
+                            
+                            // Create a simulated processed file
+                            processedFileData = createDownloadableFile(
+                                `Simulated processed content for ${toolId}`,
+                                newFileName,
+                                fileType
+                            );
+                            
+                            resultContainer.style.display = 'block';
                         } else {
                             errorMessage.textContent = result.message || 'An error occurred during processing.';
                             errorMessage.style.display = 'block';
@@ -1738,45 +1919,34 @@
                 });
             }
             
+            // Set up download button
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    if (!processedFileData) {
+                        errorMessage.textContent = 'No file available for download. Please process a file first.';
+                        errorMessage.style.display = 'block';
+                        return;
+                    }
+                    
+                    // Create a temporary anchor element to trigger download
+                    const a = document.createElement('a');
+                    a.href = processedFileData.url;
+                    a.download = processedFileData.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Clean up
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(processedFileData.url);
+                    }, 100);
+                });
+            }
+            
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-        }
-
-        // Make element draggable
-        function makeDraggable(element) {
-            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            
-            element.onmousedown = dragMouseDown;
-            
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // Get the mouse cursor position at startup
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                // Call a function whenever the cursor moves
-                document.onmousemove = elementDrag;
-            }
-            
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // Calculate the new cursor position
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                // Set the element's new position
-                element.style.top = (element.offsetTop - pos2) + "px";
-                element.style.left = (element.offsetLeft - pos1) + "px";
-            }
-            
-            function closeDragElement() {
-                // Stop moving when mouse button is released
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
         }
 
         // Close modal
@@ -1859,4 +2029,4 @@
         });
     </script>
 </body>
-</html>
+</html>                     
